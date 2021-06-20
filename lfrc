@@ -1,0 +1,110 @@
+set shell sh        # set command interpreter
+set icons true      # set icons
+set shellopts '-eu' # set safet shell commands
+set ifs "\n"        # set internal field separator
+set scrolloff 10    # space at the top and the bottom
+set drawbox true    # enable border draw
+# set promptfmt "%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+
+map <enter> shell   # press enter for shell commands
+map x $$f           # execute current file (must be executable)
+map X !$f
+map o &mimeopen $f  # dedicated keys for file opener actions
+map O $mimeopen --ask $f
+map <delete> trash
+map r push :rename<space>
+map i set hidden!
+map zz push :zip<space>
+map x
+map xt extract
+map ta push :tar<space>
+map c
+map ch push :chmod<space>
+map n
+map nd push :mkdir<space>
+map nf push :mkfile<space>
+map ns search-next
+map sw setbg
+map f
+map fi file
+map u
+map us unselect
+map un unzip
+map l
+map ln push :link<space>
+
+cmd open ${{
+    case $(file --mime-type $f -b) in
+        */x-c | */x-c++ | *python) code $fx;;
+        text/*) $EDITOR $fx;;
+        */pdf) google-chrome-stable $fx & 2>/dev/null;;
+        *) for f in $fx; do setsid $OPENER $f > /dev/null 2> /dev/null & done;;
+    esac
+}}
+
+cmd link %ln -sf $1 $fx
+
+cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
+
+cmd chmod %chmod $1 $fx
+
+cmd mkdir %mkdir $1
+
+cmd mkfile %touch $1
+
+cmd setbg %feh --bg-scale $fx  
+
+# cmd file %file $fx
+
+cmd file ${{
+    set -f
+    file "$fx"
+    printf "Press enter to continue..."
+    read ans
+}}
+
+cmd delete ${{
+    set -f
+    printf "$fx\n"
+    printf "delete?[y/n]"
+    read ans
+    [ $ans = "y" ] && rm -rf $fx
+}}
+
+cmd trash %trash-put $fx
+
+cmd unzip ${{
+    set -f
+    case $f in
+        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+        *.tar.gz|*.tgz) tar xzvf $f;;
+        *.tar.xz|*.txz) tar xJvf $f;;
+        *.zip) unzip $f;;
+        *.rar) unrar x $f;;
+        *.7z) 7z x $f;;
+    esac
+}}
+
+cmd tar ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    tar czf $1.tar.gz $1
+    rm -rf $1
+}}
+
+cmd zip ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    zip -r $1.zip $1
+    rm -rf $1
+}}
+
+# set image previewer official
+#set previewer ~/.config/lf/previewer.sh
+#set cleaner ~/.config/lf/clear_img.sh
+
+# set previewer git
+set previewer ~/.config/lf/preview
+set cleaner ~/.config/lf/cleaner
