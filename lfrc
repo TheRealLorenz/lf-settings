@@ -20,6 +20,7 @@ map xt extract
 map ta push :tar<space>
 map c
 map ch push :chmod<space>
+map co codefolder
 map n
 map nd push :mkdir<space>
 map nf push :mkfile<space>
@@ -53,6 +54,8 @@ cmd mkdir %mkdir $1
 cmd mkfile %touch $1
 
 cmd setbg %feh --bg-scale $fx  
+
+cmd codefolder %code .
 
 # cmd file %file $fx
 
