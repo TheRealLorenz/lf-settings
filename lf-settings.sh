@@ -1,12 +1,19 @@
 #!/bin/bash
 
+if [ $(which lf) == *"not found" ]; then
+	echo "lf not found, trying to install it with yay..."
+	if [[ $(which yay) == *"not found" ]]; then
+		echo "yay not found, install lf with your own aur helper and rerun the script"
+		exit 0
+	fi
+fi
+
 mkdir -pv ~/.config/lf
 
 chmod +x preview cleaner lfrun
 
-cp ./{lfrc,preview,cleaner} ~/.config/lf/
+cp -i ./{lfrc,preview,cleaner} ~/.config/lf/
 
-yay -S lf
 
 sudo pacman -S --overwrite '*' bc ueberzug ffmpegthumbnailer imagemagick poppler gnome-epub-thumbnailer chafa unzip p7zip unrar catdoc docx2txt odt2txt 
 
