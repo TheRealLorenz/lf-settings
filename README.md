@@ -6,14 +6,14 @@ You'll need to have a [Nerd Font](https://https://www.nerdfonts.com/) installed 
 
 ## Install
 
-### Arch Linux + yay
+### Arch Linux
 
 Just launch:
 
     chmod +x lf-settings.sh
     ./lf-settings.sh
 
-And you'll be good to go.
+And you'll be good to go. If you don't have yay installed on your system the script will tell you to install it from another aur helper.
 
 ### Other distros.
 
