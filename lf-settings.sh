@@ -1,6 +1,8 @@
-!/bin/bash
+#!/bin/bash
 
 mkdir -pv ~/.config/lf
+
+chmod +x preview cleaner lfrun
 
 cp ./{lfrc,preview,cleaner} ~/.config/lf/
 
@@ -10,7 +12,7 @@ sudo pacman -S --overwrite '*' bc ueberzug ffmpegthumbnailer imagemagick poppler
 
 sudo cp ./lfrun /usr/local/bin/
 
-echo -e "export LF_ICONS=\"\
+echo -e "\nexport LF_ICONS=\"\
 tw=:\
 st=:\
 ow=:\
@@ -172,3 +174,15 @@ ex=:\
 *.pdf=:\
 *.nix=:\
 \"" >> ~/.zshenv
+
+echo -e "\n#lf to switch dir
+lfcd() {
+	tmp=\"\$(mktemp)\"
+	lfrun -last-dir-path=\"\$tmp\" \"\$@\"
+	if [ -f \"\$tmp\" ]; then
+		dir=\"\$(cat \"\$tmp\")\"
+		rm -f \"\$tmp\"
+		[ -d \"\$dir\" ] && [ \"\$dir\" != \"\$(pwd)\" ] && cd \"\$dir\"
+	fi
+}
+bindkey -s '^o' 'lfcd\\n'" >> ~/.zshrc
