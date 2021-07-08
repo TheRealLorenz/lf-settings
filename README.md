@@ -6,6 +6,8 @@ You'll need to have a [Nerd Font](https://https://www.nerdfonts.com/) installed 
 
 ## Install
 
+### Arch Linux + yay
+
 Just launch:
 
     chmod +x lf-settings.sh
@@ -13,9 +15,13 @@ Just launch:
 
 And you'll be good to go.
 
+### Other distros.
+
+Coming soon! In the meanwhile you could check out the lf-settings.sh script, it's fairly easy. Without an AUR helper, you can get lf from the [official repository](https://github.com/gokcehan/lf).
+
 ## Usage
 
-On an open zsh terminal just press Control+O to open lfcd. Then you can navigate with the arrow keys or hjkl and exit with q. You're current dir will change in the last one you was in before pressing q.
+On an open zsh terminal just press Control+O to open lfcd. Then you can navigate with the arrow keys or hjkl and exit with q. You're current dir will change in the last one you were in before pressing q.
 
 ### Default commands
 
