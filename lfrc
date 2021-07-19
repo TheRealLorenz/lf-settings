@@ -53,7 +53,7 @@ cmd mkdir %mkdir $1
 
 cmd mkfile %touch $1
 
-cmd setbg %feh --bg-scale $fx  
+cmd setbg %feh --bg-fill $fx  
 
 cmd codefolder %code .
 
